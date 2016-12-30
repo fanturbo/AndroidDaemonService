@@ -10,7 +10,9 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.clock.daemon.Util;
 import com.clock.daemon.receiver.WakeReceiver;
+import com.coolerfall.daemon.Daemon;
 
 /**
  * 灰色保活手法创建的Service进程
@@ -24,7 +26,7 @@ public class GrayService extends Service {
     /**
      * 定时唤醒的时间间隔，5分钟
      */
-    private final static int ALARM_INTERVAL = 5 * 60 * 1000;
+    private final static int ALARM_INTERVAL = 30 * 1000;
     private final static int WAKE_REQUEST_CODE = 6666;
 
     private final static int GRAY_SERVICE_ID = -1001;
@@ -32,6 +34,8 @@ public class GrayService extends Service {
     @Override
     public void onCreate() {
         Log.i(TAG, "GrayService->onCreate");
+        Util.print();
+        Daemon.run(GrayService.this, GrayService.class, Daemon.INTERVAL_ONE_MINUTE);
         super.onCreate();
     }
 
@@ -65,6 +69,7 @@ public class GrayService extends Service {
     public void onDestroy() {
         Log.i(TAG, "GrayService->onDestroy");
         super.onDestroy();
+        startService(new Intent(this, GrayService.class));
     }
 
     /**
