@@ -22,11 +22,11 @@ import com.coolerfall.daemon.Daemon;
  */
 public class GrayService extends Service {
 
-    private final static String TAG = GrayService.class.getSimpleName();
+    private final static String TAG = "=====";
     /**
      * 定时唤醒的时间间隔，5分钟
      */
-    private final static int ALARM_INTERVAL = 30 * 1000;
+    private final static int ALARM_INTERVAL = 5 * 1000;
     private final static int WAKE_REQUEST_CODE = 6666;
 
     private final static int GRAY_SERVICE_ID = -1001;
@@ -34,8 +34,8 @@ public class GrayService extends Service {
     @Override
     public void onCreate() {
         Log.i(TAG, "GrayService->onCreate");
-        Util.print();
         Daemon.run(GrayService.this, GrayService.class, Daemon.INTERVAL_ONE_MINUTE);
+        Util.print();
         super.onCreate();
     }
 
@@ -57,7 +57,8 @@ public class GrayService extends Service {
         PendingIntent operation = PendingIntent.getBroadcast(this, WAKE_REQUEST_CODE, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), ALARM_INTERVAL, operation);
 
-        return START_STICKY;
+        flags =  START_STICKY;
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override

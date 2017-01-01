@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class WakeReceiver extends BroadcastReceiver {
 
-    private final static String TAG = WakeReceiver.class.getSimpleName();
+    private final static String TAG = "=====";
     private final static int WAKE_SERVICE_ID = -1111;
 
     /**

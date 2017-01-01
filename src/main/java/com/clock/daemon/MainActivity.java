@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_gray).setOnClickListener(this);
         findViewById(R.id.btn_black).setOnClickListener(this);
         findViewById(R.id.btn_background_service).setOnClickListener(this);
+        Intent grayIntent = new Intent(getApplicationContext(), GrayService.class);
+        startService(grayIntent);
 
     }
 
